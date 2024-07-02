@@ -39,6 +39,7 @@ class PaginatedListView<T> extends StatefulWidget {
     this.useSliver = false,
     this.shrinkWrap = false,
     this.reverse = false,
+    this.scrollPhysics,
     this.scrollController,
     this.scrollDelta,
   }) : assert(
@@ -130,6 +131,9 @@ class PaginatedListView<T> extends StatefulWidget {
   /// The scroll direction. Defaults to [Axis.vertical]
   final Axis scrollDirection;
 
+  /// The physisc applied to the undelying list view
+  final ScrollPhysics? scrollPhysics;
+
   /// Whether pull to refresh functionality is required. Ignored for slivers.
   final bool pullToRefresh;
 
@@ -155,8 +159,7 @@ class PaginatedListView<T> extends StatefulWidget {
   State<PaginatedListView<T>> createState() => _PaginatedListViewState<T>();
 }
 
-class _PaginatedListViewState<T> extends State<PaginatedListView<T>>
-    with PaginatedScrollController, PaginatedListMixin {
+class _PaginatedListViewState<T> extends State<PaginatedListView<T>> with PaginatedScrollController, PaginatedListMixin {
   @override
   void initState() {
     if (widget.scrollController != null) {
@@ -179,9 +182,7 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>>
         if (widget.initialLoadingErrorBuilder != null) {
           widget.initialLoadingErrorBuilder?.call(context, error, stackTrace);
         }
-        final errWidget = config?.initialLoadingErrorBuilder
-                ?.call(context, error, stackTrace) ??
-            genericError;
+        final errWidget = config?.initialLoadingErrorBuilder?.call(context, error, stackTrace) ?? genericError;
         return maybeWrapWithSliverFill(errWidget);
       },
       loading: () {
@@ -209,8 +210,7 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>>
       if (widget.emptyListBuilder != null) {
         return widget.emptyListBuilder!.call(context);
       }
-      final noItemsWidget =
-          config?.emptyListBuilder?.call(context) ?? noItemsFound;
+      final noItemsWidget = config?.emptyListBuilder?.call(context) ?? noItemsFound;
       return maybeWrapWithSliverFill(noItemsWidget);
     }
 
@@ -224,22 +224,22 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>>
     }
     if (widget.separatorBuilder != null) {
       listView = ListView.separated(
+        physics: widget.scrollPhysics,
         scrollDirection: widget.scrollDirection,
         controller: scrollController,
         itemCount: shouldRequireStatusRow ? data.length + 1 : data.length,
-        itemBuilder: (BuildContext context, int index) =>
-            itemBuilder(context, data, index),
+        itemBuilder: (BuildContext context, int index) => itemBuilder(context, data, index),
         separatorBuilder: widget.separatorBuilder!,
         shrinkWrap: widget.shrinkWrap,
         reverse: widget.reverse,
       );
     } else {
       listView = ListView.builder(
+        physics: widget.scrollPhysics,
         controller: scrollController,
         scrollDirection: widget.scrollDirection,
         itemCount: shouldRequireStatusRow ? data.length + 1 : data.length,
-        itemBuilder: (BuildContext context, int index) =>
-            itemBuilder(context, data, index),
+        itemBuilder: (BuildContext context, int index) => itemBuilder(context, data, index),
         shrinkWrap: widget.shrinkWrap,
         reverse: widget.reverse,
       );
@@ -251,22 +251,19 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>>
     Widget? listView;
 
     if (data.isEmpty) {
-      return widget.emptyListBuilder?.call(context) ??
-          noItemsFound.sliverToBoxAdapter;
+      return widget.emptyListBuilder?.call(context) ?? noItemsFound.sliverToBoxAdapter;
     }
 
     if (widget.separatorBuilder != null) {
       listView = SliverList.separated(
         itemCount: shouldRequireStatusRow ? data.length + 1 : data.length,
-        itemBuilder: (BuildContext context, int index) =>
-            itemBuilder(context, data, index),
+        itemBuilder: (BuildContext context, int index) => itemBuilder(context, data, index),
         separatorBuilder: widget.separatorBuilder!,
       );
     } else {
       listView = SliverList.builder(
         itemCount: shouldRequireStatusRow ? data.length + 1 : data.length,
-        itemBuilder: (BuildContext context, int index) =>
-            itemBuilder(context, data, index),
+        itemBuilder: (BuildContext context, int index) => itemBuilder(context, data, index),
       );
     }
     return withRefreshIndicator(listView);
