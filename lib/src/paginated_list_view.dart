@@ -59,7 +59,7 @@ class PaginatedListView<T> extends StatefulWidget {
   final EmptyListBuilder? emptyListBuilder;
 
   ///Required item builder similar to the `itemBuilder` in ListViews.
-  ///The builder wil receive one data at a time
+  ///The builder wil receive one data at a timelo
   final Widget Function(BuildContext context, T data) itemBuilder;
 
   ///Optional error builder. Called when there is error and has no existing data

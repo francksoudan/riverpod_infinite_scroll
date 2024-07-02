@@ -10,7 +10,7 @@ _$TmdbMovieImpl _$$TmdbMovieImplFromJson(Map<String, dynamic> json) =>
     _$TmdbMovieImpl(
       adult: json['adult'] as bool?,
       backdropPath: json['backdrop_path'] as String?,
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       originalLanguage: json['original_language'] as String?,
       originalTitle: json['original_title'] as String?,
       overview: json['overview'] as String?,
@@ -20,7 +20,7 @@ _$TmdbMovieImpl _$$TmdbMovieImplFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       video: json['video'] as bool?,
       voteAverage: (json['vote_average'] as num?)?.toDouble(),
-      voteCount: json['vote_count'] as int?,
+      voteCount: (json['vote_count'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$TmdbMovieImplToJson(_$TmdbMovieImpl instance) =>

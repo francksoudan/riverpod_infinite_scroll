@@ -9,7 +9,7 @@ import 'package:riverpod_infinite_scroll_pagination/riverpod_infinite_scroll_pag
 /// You will need to change state manually
 mixin PaginatedDataMixinGeneric<T> implements PaginatedNotifier<T> {
   String? queryFilter;
-  late PaginatedDataRepository<T>? _dataFetcher;
+  PaginatedDataRepository<T>? _dataFetcher;
 
   ///This method should be called inside the `build` method of your provider
   ///to initialize the pagination, state and
@@ -40,7 +40,7 @@ mixin PaginatedDataMixinGeneric<T> implements PaginatedNotifier<T> {
   ///
   /// You may override this in your notifiers
   bool hasData() {
-    return _dataFetcher!.data.isNotEmpty;
+    return _dataFetcher?.data.isNotEmpty ?? false;
   }
 
   @override
@@ -50,7 +50,7 @@ mixin PaginatedDataMixinGeneric<T> implements PaginatedNotifier<T> {
   ///
   /// You may override this in your notifiers
   bool canFetch() {
-    return _dataFetcher!.canFetch();
+    return _dataFetcher?.canFetch() ?? false;
   }
 
   @override
@@ -60,7 +60,7 @@ mixin PaginatedDataMixinGeneric<T> implements PaginatedNotifier<T> {
   ///
   /// You may override this in your notifiers
   List<T> getCurrentData() {
-    return _dataFetcher!.data;
+    return _dataFetcher?.data ?? [];
   }
 
   @override
@@ -70,14 +70,14 @@ mixin PaginatedDataMixinGeneric<T> implements PaginatedNotifier<T> {
   ///
   /// You may override this in your notifiers
   Pagination getPaginationData() {
-    return _dataFetcher!.getPaginationData();
+    return _dataFetcher?.getPaginationData() ?? Pagination();
   }
 
   /// Reloads the data. Resets the pagination and fetches the data again.
   /// You can then get the data by calling `getCurrentData()`
   Future<List<T>> reloadData() async {
     _dataFetcher?.resetPagination();
-    return _dataFetcher!.fetchData();
+    return _dataFetcher?.fetchData() ?? Future.value([]);
   }
 
   @override

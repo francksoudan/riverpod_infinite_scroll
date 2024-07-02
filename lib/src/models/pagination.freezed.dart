@@ -12,7 +12,7 @@ part of 'pagination.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Pagination _$PaginationFromJson(Map<String, dynamic> json) {
   return _Pagination.fromJson(json);
@@ -21,14 +21,17 @@ Pagination _$PaginationFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Pagination {
   /// total number of records
+// ignore: invalid_annotation_target
   @JsonKey(name: 'total_number')
   int get totalNumber => throw _privateConstructorUsedError;
 
   /// the currently requested page
+// ignore: invalid_annotation_target
   @JsonKey(name: 'current_page')
   int get currentPage => throw _privateConstructorUsedError;
 
   /// number of total pages
+// ignore: invalid_annotation_target
   @JsonKey(name: 'last_page')
   int get lastPage => throw _privateConstructorUsedError;
 
@@ -142,16 +145,19 @@ class _$PaginationImpl implements _Pagination {
       _$$PaginationImplFromJson(json);
 
   /// total number of records
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'total_number')
   final int totalNumber;
 
   /// the currently requested page
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'current_page')
   final int currentPage;
 
   /// number of total pages
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'last_page')
   final int lastPage;
@@ -162,7 +168,7 @@ class _$PaginationImpl implements _Pagination {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PaginationImpl &&
@@ -205,16 +211,19 @@ abstract class _Pagination implements Pagination {
   @override
 
   /// total number of records
+// ignore: invalid_annotation_target
   @JsonKey(name: 'total_number')
   int get totalNumber;
   @override
 
   /// the currently requested page
+// ignore: invalid_annotation_target
   @JsonKey(name: 'current_page')
   int get currentPage;
   @override
 
   /// number of total pages
+// ignore: invalid_annotation_target
   @JsonKey(name: 'last_page')
   int get lastPage;
   @override
