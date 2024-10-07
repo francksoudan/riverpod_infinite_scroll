@@ -43,9 +43,23 @@ abstract class _$SimilarMovies
 const similarMoviesProvider = SimilarMoviesFamily();
 
 /// See also [SimilarMovies].
-class SimilarMoviesFamily extends Family<AsyncValue<List<TmdbMovie>>> {
+class SimilarMoviesFamily extends Family {
   /// See also [SimilarMovies].
   const SimilarMoviesFamily();
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'similarMoviesProvider';
 
   /// See also [SimilarMovies].
   SimilarMoviesProvider call(
@@ -56,6 +70,7 @@ class SimilarMoviesFamily extends Family<AsyncValue<List<TmdbMovie>>> {
     );
   }
 
+  @visibleForOverriding
   @override
   SimilarMoviesProvider getProviderOverride(
     covariant SimilarMoviesProvider provider,
@@ -65,19 +80,26 @@ class SimilarMoviesFamily extends Family<AsyncValue<List<TmdbMovie>>> {
     );
   }
 
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  /// Enables overriding the behavior of this provider, no matter the parameters.
+  Override overrideWith(SimilarMovies Function() create) {
+    return _$SimilarMoviesFamilyOverride(this, create);
+  }
+}
+
+class _$SimilarMoviesFamilyOverride implements FamilyOverride {
+  _$SimilarMoviesFamilyOverride(this.overriddenFamily, this.create);
+
+  final SimilarMovies Function() create;
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+  final SimilarMoviesFamily overriddenFamily;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'similarMoviesProvider';
+  SimilarMoviesProvider getProviderOverride(
+    covariant SimilarMoviesProvider provider,
+  ) {
+    return provider._copyWith(create);
+  }
 }
 
 /// See also [SimilarMovies].
@@ -101,7 +123,7 @@ class SimilarMoviesProvider extends AutoDisposeAsyncNotifierProviderImpl<
         );
 
   SimilarMoviesProvider._internal(
-    super._createNotifier, {
+    super.create, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
@@ -138,9 +160,28 @@ class SimilarMoviesProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
+  (int,) get argument {
+    return (movieId,);
+  }
+
+  @override
   AutoDisposeAsyncNotifierProviderElement<SimilarMovies, List<TmdbMovie>>
       createElement() {
     return _SimilarMoviesProviderElement(this);
+  }
+
+  SimilarMoviesProvider _copyWith(
+    SimilarMovies Function() create,
+  ) {
+    return SimilarMoviesProvider._internal(
+      () => create()..movieId = movieId,
+      name: name,
+      dependencies: dependencies,
+      allTransitiveDependencies: allTransitiveDependencies,
+      debugGetCreateSourceHash: debugGetCreateSourceHash,
+      from: from,
+      movieId: movieId,
+    );
   }
 
   @override
@@ -171,4 +212,4 @@ class _SimilarMoviesProviderElement
   int get movieId => (origin as SimilarMoviesProvider).movieId;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, inference_failure_on_uninitialized_variable, inference_failure_on_function_return_type, inference_failure_on_untyped_parameter, deprecated_member_use_from_same_package

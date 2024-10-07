@@ -35,8 +35,12 @@ mixin _$Pagination {
   @JsonKey(name: 'last_page')
   int get lastPage => throw _privateConstructorUsedError;
 
+  /// Serializes this Pagination to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Pagination
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PaginationCopyWith<Pagination> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -63,6 +67,8 @@ class _$PaginationCopyWithImpl<$Res, $Val extends Pagination>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Pagination
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +115,8 @@ class __$$PaginationImplCopyWithImpl<$Res>
       _$PaginationImpl _value, $Res Function(_$PaginationImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Pagination
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -180,12 +188,14 @@ class _$PaginationImpl implements _Pagination {
                 other.lastPage == lastPage));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, totalNumber, currentPage, lastPage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Pagination
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaginationImplCopyWith<_$PaginationImpl> get copyWith =>
@@ -208,26 +218,28 @@ abstract class _Pagination implements Pagination {
   factory _Pagination.fromJson(Map<String, dynamic> json) =
       _$PaginationImpl.fromJson;
 
-  @override
-
   /// total number of records
 // ignore: invalid_annotation_target
+  @override
   @JsonKey(name: 'total_number')
   int get totalNumber;
-  @override
 
   /// the currently requested page
 // ignore: invalid_annotation_target
+  @override
   @JsonKey(name: 'current_page')
   int get currentPage;
-  @override
 
   /// number of total pages
 // ignore: invalid_annotation_target
+  @override
   @JsonKey(name: 'last_page')
   int get lastPage;
+
+  /// Create a copy of Pagination
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaginationImplCopyWith<_$PaginationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
